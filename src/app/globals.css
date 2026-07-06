@@ -1,17 +1,24 @@
 @import "tailwindcss";
 
+/* `.light-theme` is toggled on <html> by ThemeContext */
+@custom-variant light-theme (&:where(.light-theme, .light-theme *));
+
 @theme {
-  --color-brand-purple: #8b5cf6;
-  --color-brand-blue: #3b82f6;
-  --color-brand-purple-dark: #6d28d9;
-  --color-brand-blue-dark: #1d4ed8;
-  
+  /* Vaporwave palette — pink + cyan + lilac */
+  --color-brand-purple: #ff6ad5;
+  --color-brand-blue: #01cdfe;
+  --color-brand-purple-dark: #c724b1;
+  --color-brand-blue-dark: #0197b8;
+  --color-vapor-lilac: #b967ff;
+  --color-vapor-yellow: #fffb96;
+
   --font-sans: var(--font-outfit), system-ui, -apple-system, sans-serif;
   --font-display: var(--font-space), system-ui, -apple-system, sans-serif;
-  
+  --font-retro: var(--font-vt323), "Courier New", monospace;
+
   --animate-blob: blob 20s infinite;
   --animate-spin-slow: spin 25s linear infinite;
-  
+
   @keyframes blob {
     0% {
       transform: translate(0px, 0px) scale(1);
@@ -30,25 +37,25 @@
 
 /* Custom styles and variables */
 :root {
-  --background: #030014;
-  --foreground: #f3f4f6;
-  --card-bg: rgba(10, 8, 28, 0.4);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --accent-purple: 139, 92, 246;
-  --accent-blue: 59, 130, 246;
-  --scrollbar-bg: #030014;
-  --scrollbar-thumb: rgba(139, 92, 246, 0.3);
-  --scrollbar-thumb-hover: rgba(139, 92, 246, 0.6);
+  --background: #1a0b2e;
+  --foreground: #f7e9ff;
+  --card-bg: rgba(35, 10, 60, 0.45);
+  --card-border: rgba(255, 106, 213, 0.18);
+  --accent-purple: 255, 106, 213;
+  --accent-blue: 1, 205, 254;
+  --scrollbar-bg: #1a0b2e;
+  --scrollbar-thumb: rgba(255, 106, 213, 0.35);
+  --scrollbar-thumb-hover: rgba(1, 205, 254, 0.6);
 }
 
 .light-theme {
-  --background: #fafaff;
-  --foreground: #111827;
-  --card-bg: rgba(255, 255, 255, 0.7);
-  --card-border: rgba(0, 0, 0, 0.06);
-  --scrollbar-bg: #fafaff;
-  --scrollbar-thumb: rgba(59, 130, 246, 0.2);
-  --scrollbar-thumb-hover: rgba(59, 130, 246, 0.4);
+  --background: #fdf0ff;
+  --foreground: #2a0a3a;
+  --card-bg: rgba(255, 245, 253, 0.7);
+  --card-border: rgba(199, 36, 177, 0.14);
+  --scrollbar-bg: #fdf0ff;
+  --scrollbar-thumb: rgba(1, 205, 254, 0.3);
+  --scrollbar-thumb-hover: rgba(255, 106, 213, 0.5);
 }
 
 html {
@@ -62,6 +69,29 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+}
+
+/* CRT scanline overlay — sits above everything, never blocks clicks */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+.light-theme body::after,
+body.light-theme::after {
+  opacity: 0.25;
 }
 
 /* Custom scrollbar */
@@ -97,36 +127,37 @@ body {
 }
 
 .glass-panel-hover:hover {
-  background: rgba(139, 92, 246, 0.08);
-  border-color: rgba(139, 92, 246, 0.2);
-  box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.15);
+  background: rgba(255, 106, 213, 0.1);
+  border-color: rgba(255, 106, 213, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(255, 106, 213, 0.3),
+    0 0 20px -6px rgba(1, 205, 254, 0.25);
 }
 
 .light-theme .glass-panel-hover:hover {
-  background: rgba(59, 130, 246, 0.04);
-  border-color: rgba(59, 130, 246, 0.15);
-  box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.1);
+  background: rgba(1, 205, 254, 0.06);
+  border-color: rgba(199, 36, 177, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(199, 36, 177, 0.18);
 }
 
 /* Background grid effect */
 .grid-bg {
   background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, rgba(255, 106, 213, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(1, 205, 254, 0.06) 1px, transparent 1px);
 }
 
 .light-theme .grid-bg {
-  background-image: 
-    linear-gradient(to right, rgba(59, 130, 246, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(59, 130, 246, 0.02) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, rgba(199, 36, 177, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(1, 205, 254, 0.05) 1px, transparent 1px);
 }
 
 /* Radial spotlight effect */
 .spotlight {
   background: radial-gradient(
     600px circle at var(--x, 0px) var(--y, 0px),
-    rgba(139, 92, 246, 0.08),
+    rgba(255, 106, 213, 0.1),
     transparent 40%
   );
 }
@@ -134,15 +165,15 @@ body {
 .light-theme .spotlight {
   background: radial-gradient(
     600px circle at var(--x, 0px) var(--y, 0px),
-    rgba(59, 130, 246, 0.05),
+    rgba(1, 205, 254, 0.06),
     transparent 40%
   );
 }
 
 /* Text selections */
 ::selection {
-  background: rgba(139, 92, 246, 0.3);
-  color: inherit;
+  background: rgba(255, 106, 213, 0.4);
+  color: #fff;
 }
 
 /* Custom typing cursor */
@@ -153,7 +184,7 @@ body {
 
 @keyframes blink-dark {
   from, to { color: transparent }
-  50% { color: #8b5cf6 }
+  50% { color: #ff6ad5 }
 }
 
 .light-theme .typing-cursor::after {
@@ -162,5 +193,112 @@ body {
 
 @keyframes blink-light {
   from, to { color: transparent }
-  50% { color: #3b82f6 }
+  50% { color: #01cdfe }
+}
+
+/* ==================== VAPORWAVE ==================== */
+
+/* Chrome / neon text — classic vaporwave metallic-glow heading */
+.chrome-text {
+  background: linear-gradient(
+    to bottom,
+    #fffb96 0%,
+    #ff6ad5 45%,
+    #b967ff 55%,
+    #01cdfe 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 18px rgba(255, 106, 213, 0.45);
+  filter: drop-shadow(0 2px 0 rgba(1, 205, 254, 0.35));
+}
+
+/* Neon glow on any element */
+.vapor-glow {
+  text-shadow:
+    0 0 6px rgba(255, 106, 213, 0.8),
+    0 0 14px rgba(255, 106, 213, 0.5),
+    0 0 26px rgba(1, 205, 254, 0.4);
+}
+
+/* Retro sun — cut by horizontal lines, sits behind hero visuals */
+.vapor-sun {
+  background: linear-gradient(to bottom, #fffb96 0%, #ff6ad5 55%, #b967ff 100%);
+  -webkit-mask-image: repeating-linear-gradient(
+    to bottom,
+    #000 0px,
+    #000 var(--sun-solid, 14px),
+    transparent var(--sun-solid, 14px),
+    transparent calc(var(--sun-solid, 14px) + var(--sun-gap, 5px))
+  );
+  mask-image: repeating-linear-gradient(
+    to bottom,
+    #000 0px,
+    #000 var(--sun-solid, 14px),
+    transparent var(--sun-solid, 14px),
+    transparent calc(var(--sun-solid, 14px) + var(--sun-gap, 5px))
+  );
+  filter: drop-shadow(0 0 40px rgba(255, 106, 213, 0.55));
+}
+
+/* Only the lower half of the sun is striped; top is solid */
+.vapor-sun-top {
+  background: linear-gradient(to bottom, #fffb96 0%, #ff6ad5 100%);
+  filter: drop-shadow(0 0 40px rgba(255, 106, 213, 0.5));
+}
+
+/* Perspective grid floor */
+.vapor-floor {
+  background-image:
+    linear-gradient(rgba(1, 205, 254, 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 106, 213, 0.45) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(340px) rotateX(74deg);
+  transform-origin: center bottom;
+  animation: floor-scroll 6s linear infinite;
+  mask-image: linear-gradient(to top, #000 5%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to top, #000 5%, transparent 90%);
+}
+
+@keyframes floor-scroll {
+  from { background-position: 0 0; }
+  to { background-position: 0 60px; }
+}
+
+/* Glitch text — RGB split shudder */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  clip-path: inset(0);
+}
+
+.glitch::before {
+  color: #01cdfe;
+  animation: glitch-x 3s infinite steps(2, end);
+}
+
+.glitch::after {
+  color: #ff6ad5;
+  animation: glitch-x 2.4s infinite reverse steps(2, end);
+}
+
+@keyframes glitch-x {
+  0%, 82%, 100% { transform: translate(0); opacity: 0; }
+  83% { transform: translate(-2px, 1px); opacity: 0.75; }
+  90% { transform: translate(3px, -1px); opacity: 0.75; }
+  96% { transform: translate(-1px, 0); opacity: 0.6; }
+}
+
+/* Retro monospace helper */
+.font-retro {
+  font-family: var(--font-retro);
+  letter-spacing: 0.04em;
 }

@@ -93,13 +93,16 @@ export default function Hero() {
             className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-purple/30 bg-brand-purple/10 text-brand-purple text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm"
           >
             <Sparkles size={12} className="animate-pulse" />
-            AI & Data Science Student @ KTU
+            <span className="font-retro text-sm normal-case tracking-normal">AI & Data Science Student @ KTU</span>
           </motion.div>
 
           {/* Heading */}
           <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none mb-6">
             Hi, I'm{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-purple via-violet-400 to-brand-blue font-extrabold block mt-2">
+            <span
+              data-text="Rima Naurin"
+              className="glitch chrome-text font-extrabold block mt-2"
+            >
               Rima Naurin
             </span>
           </h1>

@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#030014] text-zinc-100 flex flex-col">
+    <div className="relative min-h-screen text-zinc-100 flex flex-col">
       <Hero />
       <About />
       <Skills />

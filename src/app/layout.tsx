@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Grotesk } from "next/font/google";
+import { Outfit, Space_Grotesk, VT323 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeContext";
 import Navbar from "@/components/Navbar";
@@ -7,6 +7,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
 import Loader from "@/components/Loader";
 import BackToTop from "@/components/BackToTop";
+import VaporBackground from "@/components/VaporBackground";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -16,6 +17,13 @@ const outfit = Outfit({
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const vt323 = VT323({
+  variable: "--font-vt323",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -42,10 +50,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${outfit.variable} ${spaceGrotesk.variable} ${vt323.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans transition-colors duration-300">
         <ThemeProvider>
+          <VaporBackground />
           <Loader />
           <ScrollProgress />
           <CustomCursor />
